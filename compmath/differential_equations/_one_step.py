@@ -3,7 +3,7 @@ from compmath.differential_equations import DifferentialEquation
 from typing import Tuple
 
 
-def euler(equation: DifferentialEquation, h: float, epsilon: float) -> Tuple[np.ndarray, np.ndarray]:
+def euler(equation: DifferentialEquation, h: float, epsilon: float = 1e-2) -> Tuple[np.ndarray, np.ndarray]:
     """
     Solves a differential equation using the Euler method with adaptive step size.
 
@@ -45,7 +45,7 @@ def euler(equation: DifferentialEquation, h: float, epsilon: float) -> Tuple[np.
     return np.array(xs), np.array(ys)
 
 
-def extended_euler(equation: DifferentialEquation, h: float, epsilon: float) -> Tuple[np.ndarray, np.ndarray]:
+def extended_euler(equation: DifferentialEquation, h: float, epsilon: float = 1e-2) -> Tuple[np.ndarray, np.ndarray]:
     """
     Solves a differential equation using the Extended Euler method with adaptive step size.
 
@@ -87,7 +87,7 @@ def extended_euler(equation: DifferentialEquation, h: float, epsilon: float) -> 
     return np.array(xs), np.array(ys)
 
 
-def runge_kutta_4(equation: DifferentialEquation, h: float, epsilon: float) -> Tuple[np.ndarray, np.ndarray]:
+def runge_kutta_4(equation: DifferentialEquation, h: float, epsilon: float = 1e-2) -> Tuple[np.ndarray, np.ndarray]:
     """
     Solves a differential equation using the fourth-order Runge-Kutta method (RK4) with adaptive step size.
 

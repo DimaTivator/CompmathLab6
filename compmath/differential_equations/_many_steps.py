@@ -3,7 +3,7 @@ from compmath.differential_equations import DifferentialEquation
 from typing import Tuple
 
 
-def milne(equation: DifferentialEquation, h: float) -> Tuple[np.ndarray, np.ndarray]:
+def milne(equation: DifferentialEquation, h: float, epsilon: float = 1e-2) -> Tuple[np.ndarray, np.ndarray]:
     """
     Solves a differential equation using Milne's method.
 
