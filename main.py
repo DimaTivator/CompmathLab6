@@ -65,7 +65,7 @@ def main():
                 method=methods[method]
             )
         else:
-            xs, ys = methods[method](DifferentialEquation(x0=x0, y0=y0, a=left, b=right, f=func), h)
+            xs, ys = methods[method](DifferentialEquation(x0=x0, y0=y0, a=left, b=right, f=func), h, eps)
 
         fig, ax = plt.subplots(figsize=(18, 10))
 

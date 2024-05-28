@@ -3,7 +3,7 @@ from compmath.differential_equations import DifferentialEquation
 from typing import Tuple
 
 
-def milne(equation: DifferentialEquation, h: float) -> Tuple[np.ndarray, np.ndarray]:
+def milne(equation: DifferentialEquation, h: float, eps: float) -> Tuple[np.ndarray, np.ndarray]:
     """
     Solves a differential equation using Milne's method.
 
@@ -28,7 +28,18 @@ def milne(equation: DifferentialEquation, h: float) -> Tuple[np.ndarray, np.ndar
         k4 = h * f(xs[i - 1] + h, ys[i - 1] + k3)
         ys[i] = ys[i - 1] + (k1 + 2 * k2 + 2 * k3 + k4) / 6
 
-    for i in range(3, n_steps):
-        ys[i + 1] = ys[i - 3] + 4 * h / 3 * (2 * f(xs[i], ys[i]) - f(xs[i - 1], ys[i - 1]) + 2 * f(xs[i - 2], ys[i - 2]))
+    for i in range(4, n_steps + 1):
+        y_pred = ys[i - 4] + 4 * h / 3 * (
+                    2 * f(xs[i - 3], ys[i - 3]) - f(xs[i - 2], ys[i - 2]) + 2 * f(xs[i - 1], ys[i - 1]))
+
+        y_corr = ys[i - 2] + h / 3 * (
+                    f(xs[i - 2], ys[i - 2]) + 4 * f(xs[i - 1], ys[i - 1]) + f(xs[i], y_pred))
+
+        while abs(y_pred - y_corr) > eps:
+            y_pred = y_corr
+            y_corr = ys[i - 2] + h / 3 * (
+                        f(xs[i - 2], ys[i - 2]) + 4 * f(xs[i - 1], ys[i - 1]) + f(xs[i], y_pred))
+
+        ys[i] = y_corr
 
     return xs, ys
