@@ -57,7 +57,15 @@ def main():
         st.warning('Please ensure that the value of "Left" is less than the value of "Right".')
 
     if st.button('Go'):
-        xs, ys = methods[method](DifferentialEquation(x0=x0, y0=y0, a=left, b=right, f=func), h, epsilon=eps)
+        if method in ['Euler', 'Extended Euler', 'RK4']:
+            xs, ys = solve_adaptive_step_size(
+                DifferentialEquation(x0=x0, y0=y0, a=left, b=right, f=func),
+                h,
+                epsilon=eps,
+                method=methods[method]
+            )
+        else:
+            xs, ys = methods[method](DifferentialEquation(x0=x0, y0=y0, a=left, b=right, f=func), h)
 
         fig, ax = plt.subplots(figsize=(18, 10))
 
